@@ -1,0 +1,12 @@
+{
+    "admin": {
+        "password": "scrypt:32768:8:1$DiHgvlaVSqhN0qAf$e5f47d9bbaf858df27eed6666f62eac3972af56d1bf99334c2c4e5ba5aa73f7f3c3ef2be235ec8ecf961074df36546d0862b6f37af316b9b6c7a0c211d6c895a",
+        "registered_at": "2026-01-18T15:56:51.731631",
+        "last_login": "2026-01-18T15:57:08.274141"
+    },
+    "test1": {
+        "password": "scrypt:32768:8:1$KORc0xHJe6mrCsuO$3c5219251e53e9cd03b30b4155c91ca6bbc9eb34f6fb4b2ae81f02ccc5efa964a1beed5ca6052f162acd2e932e0954d3c7a7c5562210d25ab893aafba7015888",
+        "registered_at": "2026-01-18T15:58:27.691453",
+        "last_login": "2026-01-18T15:58:47.938071"
+    }
+}
