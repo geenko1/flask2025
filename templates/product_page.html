@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mt-4">
+    <!-- Картинка товара -->
+    <div class="col-md-5 text-center">
+        {% if product.image %}
+            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" class="img-fluid rounded" alt="{{ product.title }}">
+        {% else %}
+            <img src="{{ url_for('static', filename='uploads/default.png') }}" class="img-fluid rounded" alt="Нет изображения">
+        {% endif %}
+    </div>
+
+    <!-- Информация о товаре -->
+    <div class="col-md-7">
+        <h2>{{ product.title }}</h2>
+        <h4 class="text-success">{{ product.price }} ₽</h4>
+        {% if product.brand %}
+            <p class="text-muted">Бренд: <a href="{{ url_for('brand_page', brand_id=product.brand.id) }}">{{ product.brand.name }}</a></p>
+        {% endif %}
+        <p>{{ product.description or "Описание отсутствует" }}</p>
+        <p>Доступно: {{ product.quantity_available }}</p>
+
+        <!-- Форма добавления в корзину для покупателей -->
+        {% if current_user.is_authenticated and current_user.role == 'buyer' %}
+            <form method="POST" action="{{ url_for('add_to_cart', product_id=product.id) }}">
+                <div class="mb-2">
+                    <label>Количество:</label>
+                    <input type="number" name="quantity" value="1" min="1" max="{{ product.quantity_available }}"
+                           class="form-control form-control-sm" style="width:70px; display:inline-block;"
+                           {% if product.quantity_available == 0 %} disabled {% endif %}>
+                </div>
+                <button type="submit" class="btn btn-primary"
+                        {% if product.quantity_available == 0 %} disabled {% endif %}>
+                    {% if product.quantity_available == 0 %} Нет в наличии {% else %} Добавить в корзину {% endif %}
+                </button>
+            </form>
+        {% endif %}
+
+        <!-- Кнопки редактирования/удаления для владельца бренда и админа -->
+        {% if current_user.is_authenticated %}
+            {% if current_user.role == 'admin' or (current_user.role == 'brand' and current_user.brand and current_user.brand.id == product.brand.id) %}
+                <hr>
+                <a href="{{ url_for('edit_product', product_id=product.id) }}" class="btn btn-outline-primary">Редактировать</a>
+                <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline-block;" onsubmit="return confirm('Вы точно хотите удалить этот товар?');">
+                    <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                </form>
+            {% endif %}
+        {% endif %}
+
+        <hr>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Назад в каталог</a>
+    </div>
+</div>
+{% endblock %}

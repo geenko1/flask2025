@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Все бренды (админ)</h2>
+
+<a class="btn btn-success mb-3" href="{{ url_for('create_brand') }}">Создать бренд</a>
+
+<ul class="list-group">
+    {% for brand in brands %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ brand.name }} ({{ brand.owner.username }})</span>
+        <div>
+            <a class="btn btn-sm btn-info" href="{{ url_for('brand_page', brand_id=brand.id) }}">Перейти</a>
+            <a class="btn btn-sm btn-warning" href="{{ url_for('admin_edit_brand', brand_id=brand.id) }}">Редактировать</a>
+            <form action="{{ url_for('admin_delete_brand', brand_id=brand.id) }}" method="POST" style="display:inline;">
+                <button class="btn btn-sm btn-danger" onclick="return confirm('Удалить бренд?')">Удалить</button>
+            </form>
+        </div>
+    </li>
+    {% else %}
+        <li class="list-group-item">Брендов пока нет</li>
+    {% endfor %}
+</ul>
+{% endblock %}

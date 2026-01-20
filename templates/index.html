@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h1 class="mb-3">Каталог товаров</h1>
+
+    <!-- Форма фильтров -->
+    <form method="get" class="row g-2 mb-4">
+        <div class="col-md-3">
+            <input type="text" name="search" class="form-control" placeholder="Поиск по названию" value="{{ search }}">
+        </div>
+
+        <div class="col-md-3">
+            <select name="brand" class="form-select">
+                <option value="">Все бренды</option>
+                {% for b in brands %}
+                    <option value="{{ b.id }}" {% if selected_brand|int == b.id %}selected{% endif %}>{{ b.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <select name="sort_price" class="form-select">
+                <option value="">Сортировка по цене</option>
+                <option value="asc" {% if sort_price == 'asc' %}selected{% endif %}>По возрастанию</option>
+                <option value="desc" {% if sort_price == 'desc' %}selected{% endif %}>По убыванию</option>
+            </select>
+        </div>
+
+        <div class="col-md-3 d-flex">
+            <button type="submit" class="btn btn-primary me-2">Применить</button>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Сбросить</a>
+        </div>
+    </form>
+
+    <!-- Список товаров -->
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('product_page', product_id=product.id) }}" 
+                   style="text-decoration: none; color: inherit;">
+                    <div class="card {% if product.quantity_available == 0 %}text-muted{% endif %}" style="height:100%;">
+                        {% if product.image %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" 
+                                 class="card-img-top" style="height:180px; object-fit:cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }} — {{ product.price }} ₽</h5>
+                            <p class="card-text text-muted">{{ product.brand.name }}</p>
+
+                            {% if product.quantity_available > 0 %}
+                                {% if product.quantity_available < 10 %}
+                                    <p class="text-danger fw-bold">Осталось мало: {{ product.quantity_available }}</p>
+                                {% else %}
+                                    <p class="text-success">В наличии: {{ product.quantity_available }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-secondary fw-bold">Нет в наличии</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% else %}
+            <p>Товары не найдены</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
