@@ -1,0 +1,7 @@
+{
+    "admin": {
+        "password": "pbkdf2:sha256:600000$QL0O6bZJZhFJJnWP$f0ef44009cad2ea23c6e719faa7ba916ddf92802a8ba8fc9ddf15060f91dcc23",
+        "registered_at": "2026-01-21T12:08:27.997489",
+        "last_login": null
+    }
+}

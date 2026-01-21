@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Создать бренд</h2>
+<form method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label class="form-label">Название бренда</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Описание</label>
+        <textarea name="description" class="form-control"></textarea>
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Логотип</label>
+        <input type="file" name="logo" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success">Создать</button>
+</form>
+{% endblock %}

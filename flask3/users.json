@@ -1,0 +1,17 @@
+{
+    "admin": {
+        "password": "pbkdf2:sha256:600000$BkvozFgDemcpACOp$26beee3d9018baea33e5460adefe1dded65a80804caaa0fcef6877993e6481bd",
+        "registered_at": "2026-01-21T12:07:13.653713",
+        "last_login": "2026-01-21T12:07:34.745751"
+    },
+    "anna": {
+        "password": "pbkdf2:sha256:600000$Z35ADFxWs97btwAH$09b126f2ab9de8ed3e5017b277008c434470b35ea55696eb146e0fb0a27c5b57",
+        "registered_at": "2026-01-21T12:07:51.558876",
+        "last_login": null
+    },
+    "ivan123": {
+        "password": "pbkdf2:sha256:600000$Cp3vwUABR7JBtTPt$6d67563bdef192e9ceab32433211c3392bc61f10d54c57ddc9976205e3c543e7",
+        "registered_at": "2026-01-21T12:08:02.364324",
+        "last_login": "2026-01-21T12:08:40.375907"
+    }
+}

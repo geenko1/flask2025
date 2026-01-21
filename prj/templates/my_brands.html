@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Мои бренды</h2>
+
+<ul class="list-group">
+    {% for brand in brands %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ brand.name }}</span>
+        <a class="btn btn-sm btn-primary" href="{{ url_for('brand_page', brand_id=brand.id) }}">Перейти</a>
+    </li>
+    {% else %}
+    <li class="list-group-item">У вас пока нет брендов</li>
+    {% endfor %}
+</ul>
+{% endblock %}

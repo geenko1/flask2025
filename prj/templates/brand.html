@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ brand.name }}</h2>
+    {% if brand.logo %}
+        <img src="{{ url_for('static', filename='uploads/' ~ brand.logo) }}" alt="Логотип" style="max-height:100px;">
+    {% endif %}
+    <p>{{ brand.description }}</p>
+
+    <hr>
+
+    <div class="row">
+        {% for product in brand.products %}
+            <div class="col-md-3 mb-4">
+                <a href="{{ url_for('product_page', product_id=product.id) }}" 
+                   style="text-decoration: none; color: inherit;">
+                    <div class="card {% if product.quantity_available == 0 %}text-muted{% endif %}" style="height:100%;">
+                        {% if product.image %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ product.image) }}" 
+                                 class="card-img-top" style="height:180px; object-fit:cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.title }} — {{ product.price }} ₽</h5>
+
+                            {% if product.quantity_available > 0 %}
+                                {% if product.quantity_available < 10 %}
+                                    <p class="text-danger fw-bold">Осталось мало: {{ product.quantity_available }}</p>
+                                {% else %}
+                                    <p class="text-success">В наличии: {{ product.quantity_available }}</p>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-secondary fw-bold">Нет в наличии</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {% else %}
+            <p>Товары отсутствуют</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Пользователи</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя пользователя</th>
+            <th>Роль</th>
+            <th>Изменить роль</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+                <form action="{{ url_for('change_user_role', user_id=user.id) }}" method="POST">
+                    <select name="role" class="form-select form-select-sm">
+                        <option value="buyer" {% if user.role == 'buyer' %}selected{% endif %}>Buyer</option>
+                        <option value="brand" {% if user.role == 'brand' %}selected{% endif %}>Brand</option>
+                    </select>
+                    <button type="submit" class="btn btn-sm btn-primary mt-1">Сохранить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
